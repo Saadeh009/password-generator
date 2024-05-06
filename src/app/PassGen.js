@@ -13,6 +13,7 @@ const generatePassword = () => {
 
 export default function PassGen() { // child function
   const [password, setPassword] = useState("");
+  const [strengthLevel, setStrengthLevel] = useState("Unset yet");
 
   // Function to handle password generation
   const handleGeneratePassword = () => {
@@ -30,8 +31,8 @@ export default function PassGen() { // child function
             params: {
               password: password
             }
-          }) ; // Send password to API route
-        console.log("Strength result:", response.data); // Log response from API
+          })
+        setStrengthLevel(response.data)
       } catch (error) {
         console.error("Error sending password:", error);
       }
@@ -60,6 +61,9 @@ export default function PassGen() { // child function
           <br />
           <button className={styles.button} type="submit">Submit for strength result</button>
         </form>
+        <br />
+        <br />
+        <h4>Strength scale: {strengthLevel}</h4>
       </div>
     </main>
   );
